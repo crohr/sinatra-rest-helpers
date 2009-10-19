@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "sinatra-rest-helpers"
     gem.summary = %Q{Adds useful helpers for REST applications developed with Sinatra.}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{A set of helpers for sinatra apps that expose REST resources.}
     gem.email = "cyril.rohr@gmail.com"
     gem.homepage = "http://github.com/cryx/sinatra-rest-helpers"
     gem.authors = ["Cyril Rohr"]

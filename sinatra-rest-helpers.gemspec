@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Cyril Rohr"]
   s.date = %q{2009-10-19}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{A set of helpers for sinatra apps that expose REST resources.}
   s.email = %q{cyril.rohr@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
