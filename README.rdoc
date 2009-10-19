@@ -1,6 +1,6 @@
 = sinatra-rest-helpers
 
-A set of helpers for sinatra apps that expose ReST resources.
+A set of helpers for sinatra apps that expose REST resources.
 
 == Note on Patches/Pull Requests
  
