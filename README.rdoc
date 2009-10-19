@@ -1,6 +1,6 @@
 = sinatra-rest-helpers
 
-Description goes here.
+A set of helpers for sinatra apps that expose ReST resources.
 
 == Note on Patches/Pull Requests
  
@@ -16,3 +16,4 @@ Description goes here.
 == Copyright
 
 Copyright (c) 2009 Cyril Rohr. See LICENSE for details.
+Copyright (c) 2009 INRIA Rennes - Bretagne Atlantique. See LICENSE for details.
