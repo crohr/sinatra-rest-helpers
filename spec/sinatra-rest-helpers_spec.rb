@@ -65,4 +65,18 @@ describe "SinatraRestHelpers" do
     app.test_provides!("application/json")
     app.response.headers['Content-Type'].should == "application/json"
   end
+  it "should correctly deal with widlcard characters [client-side, I]" do
+    request = mock("request", :accept => "application/vnd.fr.grid5000.api.*+json")
+    app = App.new(request)
+    app.should_not_receive(:halt)
+    app.test_provides!("application/vnd.fr.grid5000.api.Cluster+json;level=1")
+    app.response.headers['Content-Type'].should == "application/vnd.fr.grid5000.api.Cluster+json;level=1"
+  end
+  it "should correctly deal with widlcard characters [client-side, II]" do
+    request = mock("request", :accept => "application/*")
+    app = App.new(request)
+    app.should_not_receive(:halt)
+    app.test_provides!("application/vnd.fr.grid5000.api.Cluster+json;level=1")
+    app.response.headers['Content-Type'].should == "application/vnd.fr.grid5000.api.Cluster+json;level=1"
+  end
 end

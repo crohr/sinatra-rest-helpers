@@ -23,8 +23,8 @@ module Sinatra
       end
       selected_format = supported_formats.detect{ |supported_format| 
         !accepted_formats.detect{ |accepted_format| 
-          accepted_format["type"] == supported_format["type"] && 
-          (accepted_format["level"] || INFINITY).to_f >= (supported_format["level"] || 0).to_f
+          Regexp.new(Regexp.escape(accepted_format["type"]).gsub("\\*", ".*?")) =~ supported_format["type"] &&
+            (accepted_format["level"] || INFINITY).to_f >= (supported_format["level"] || 0).to_f
         }.nil?
       }      
       if selected_format.nil?
