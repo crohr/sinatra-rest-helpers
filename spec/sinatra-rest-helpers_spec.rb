@@ -38,6 +38,13 @@ describe "SinatraRestHelpers" do
     app.test_provides!(:json)
     app.response.headers['Content-Type'].should == "application/json"
   end
+  it "should be case insensitive" do
+    request = mock("request", :accept => "application/json")
+    app = App.new(request)
+    app.should_not_receive(:halt)
+    app.test_provides!("application/JSON")
+    app.response.headers['Content-Type'].should == "application/JSON"
+  end
   it "should not accept a request with a type level lower than what is supported" do
     request = mock("request", :accept => "application/json;level=1")
     app = App.new(request)
