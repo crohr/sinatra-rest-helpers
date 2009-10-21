@@ -1,6 +1,12 @@
 require 'rack'
 
 module Sinatra
+  # 
+  # Include it with:
+  #   class App < Sinatra::Base
+  #     helpers Sinatra::RestHelpers
+  #   end
+  # 
   module RestHelpers
     INFINITY = 1/0.0
     # e.g.:
@@ -18,7 +24,8 @@ module Sinatra
       end.compact.map do |f|
         generate_type_hash.call(f)
       end
-      accepted_formats = request.accept.split(/,\s*/).map do |f| 
+      # request.accept is an Array
+      accepted_formats = request.accept.map do |f| 
         generate_type_hash.call(f)
       end
       selected_format = supported_formats.detect{ |supported_format| 
