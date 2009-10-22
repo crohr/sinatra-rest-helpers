@@ -31,10 +31,13 @@ describe "SinatraRestHelpers" do
   end
   describe ":provides" do
     it "should throw a 406 if the client requested only unsupported formats" do
-      request = mock("request", :accept => ["application/json"])
+      mime :json, 'application/json'
+      mime :xml, 'application/xml'
+      mime :object_json, 'application/vnd.com.example.Object+json;level=1'
+      request = mock("request", :accept => ["text/plain"])
       app = App.new(request)
-      app.should_receive(:halt).with(406, "")
-      app.test_provides!(:json)
+      app.should_receive(:halt).with(406, "application/json,application/xml,application/vnd.com.example.Object+json;level=1")
+      app.test_provides!(:json, :xml, :object_json)
     end
     it "should not throw a 406 if the client requested a supported format" do
       request = mock("request", :accept => ["application/json"])
@@ -54,7 +57,7 @@ describe "SinatraRestHelpers" do
     it "should not accept a request with a type level lower than what is supported" do
       request = mock("request", :accept => ["application/json;level=1"])
       app = App.new(request)
-      app.should_receive(:halt).with(406, "application/json;level=3, application/json;level=2")
+      app.should_receive(:halt).with(406, "application/json;level=3,application/json;level=2")
       app.test_provides!("application/json;level=3", "application/json;level=2")
     end
     it "should accept a request having a supported mime type, but with no level" do

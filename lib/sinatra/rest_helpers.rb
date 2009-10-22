@@ -38,8 +38,9 @@ module Sinatra
       if selected_format.nil?
         halt 406, supported_formats.map{|f| 
           output = f["type"]
-          output += ";level=#{f["level"]}" if f.has_key?("level")
-        }.join(", ")
+          output.concat(";level=#{f["level"]}") if f.has_key?("level")
+          output
+        }.join(",")
       else
         response.headers['Content-Type'] = "#{selected_format["type"]}#{selected_format["level"].nil? ? "" : ";level=#{selected_format["level"]}"}"
       end
