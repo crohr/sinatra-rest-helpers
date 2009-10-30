@@ -58,6 +58,8 @@ module Sinatra
         halt 400, "Input data size must not be empty and must not exceed #{options[:limit]} bytes." if (options[:limit] && input_data.length > options[:limit]) || input_data.length == 0
         parser_selector.select(mime_type).load(input_data)
       end
+    rescue StandardError => e
+      halt 400, "#{e.class.name}: #{e.message}"
     end
     
     def compute_etag(*args)  # :nodoc:

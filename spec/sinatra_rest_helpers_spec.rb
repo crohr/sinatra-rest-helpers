@@ -134,6 +134,15 @@ describe "SinatraRestHelpers" do
       app.should_receive(:halt).with(400, /must provide a Content-Type HTTP header/)
       app.test_parse_input_data!(parser_selector)
     end
+    it "should return 400 if the request's body is not parseable" do
+      require 'json'
+      parser_selector = mock("parser_selector")
+      request = mock("request", :env => {'rack.input' => StringIO.new('{"foo": bar"}'), 'CONTENT_TYPE' => 'application/json'})
+      app = App.new(request)
+      parser_selector.should_receive(:select).with('application/json').and_return(JSON)
+      app.should_receive(:halt).with(400, /unexpected token at '\{"foo": bar"\}'/)
+      app.test_parse_input_data!(parser_selector)
+    end
   end
   
   describe ":compute_etag" do
